@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
-import { userModel } from "../db/users/models/user";
+import { userModel } from "../db/userModel/user";
 
 export async function createUser(data:any) {
     const hashedPassword=await bcrypt.hash(data.password,14);
