@@ -1,7 +1,10 @@
+import { FastifyReply, FastifyRequest } from "fastify";
 import { comparePassword, createUser, findUserByEmail, isEmailExist, isUsernameExist } from "./service";
 import jwt from "jsonwebtoken"
+import { LoginRequestBody, RegisterRequestBody } from "../db/type/types";
 
-export async function registerUser(req:any,res:any) {
+
+export async function registerUser(req: FastifyRequest<{ Body: RegisterRequestBody }>, res: FastifyReply) {
     try{
         if(await isUsernameExist(req.body.username) && await isEmailExist(req.body.email)){
             res.code(400);
@@ -24,7 +27,7 @@ export async function registerUser(req:any,res:any) {
     }
 }
 
-export async function loginUser(req:any,res:any) {
+export async function loginUser(req: FastifyRequest<{ Body: LoginRequestBody }>, res: FastifyReply) {
     try{
         const user=await findUserByEmail(req.body.email)
         if(!user){

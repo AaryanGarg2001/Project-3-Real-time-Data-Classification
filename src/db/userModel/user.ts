@@ -12,7 +12,10 @@ const UserSchema=new Schema({
         type:String,
         required:true
     },
-    fullName:String,
+    email:{
+        type:String,
+        required:true
+    }
     // posts:[{
     //     type:Schema.Types.ObjectId,
     //     ref:"Post"
