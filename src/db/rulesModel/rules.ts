@@ -7,6 +7,10 @@ const RuleSchema = new Schema({
             type: Schema.Types.ObjectId, 
             ref: 'User', 
             required: true 
+        },
+        rule:{
+            type:String,
+            required: true
         }
 })
 

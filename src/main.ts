@@ -1,30 +1,41 @@
+import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { connectDatabase } from "./db";
 import { env } from "./db/env";
 import { logger } from "./utils/logger";
-import { buildServer } from "./utils/server";
+import { authenticateJWT } from "./middleware/auth";
+import { registerRoutes } from "./auth/route";
+import { registerRulesRoutes } from "./rules/routes";
+import { evaluateRule } from "./rules/services";
 
-async function escapeProgram({
-    app,
-}:{
-    app: Awaited <ReturnType<typeof buildServer>>;
-}){
-    await app.close();
-}
-
+const app= fastify({
+    logger:logger
+});
 async function main() {
 
-    const app=await buildServer();
+
+    // Protected routes can use the middleware
+    // app.addHook('onRequest', authenticateJWT);
+    app.addHook('onRequest', async (req: FastifyRequest, reply: FastifyReply) => {
+        if (req.routerPath !== '/register' && req.routerPath !== '/login') {
+          await authenticateJWT(req, reply);
+        }
+      });
+    
+    app.register(registerRoutes);
+    app.register(registerRulesRoutes);
+
 
     await app.listen({
         port:env.PORT,
         host:env.HOST
-    },(err,address)=>{
-        if(err){
-            logger.error(err);
-            escapeProgram({app});
-        }
     })
     const db= connectDatabase()
+
 }
 
 main();
+
+export{
+    app,
+    main
+}

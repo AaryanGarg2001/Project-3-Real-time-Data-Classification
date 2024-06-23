@@ -1,10 +1,8 @@
 import jsep from 'jsep';
 
-type DataDictionary = { [key: string]: string };
-
-export const evaluateRule = (rule: string, data: DataDictionary): boolean => {
+export const evaluateRule = (rule: string, data: String): boolean => {
   const parsedRule = jsep(rule);
-  const count = (char: string) => (data[char]?.match(new RegExp(char, 'g')) || []).length;
+  const count = (char: string) => (data?.match(new RegExp(char, 'g')) || []).length;
 
   const evaluate = (node: jsep.Expression): any => {
     if (!node) {
@@ -36,7 +34,7 @@ export const evaluateRule = (rule: string, data: DataDictionary): boolean => {
         if (!(identifierNode.name in data)) {
           throw new Error(`Undefined identifier: ${identifierNode.name}`);
         }
-        return data[identifierNode.name];
+        return identifierNode.name;
       }
       default:
         throw new Error(`Unsupported node type: ${node.type}`);
@@ -82,10 +80,6 @@ export const evaluateRule = (rule: string, data: DataDictionary): boolean => {
 };
 
 // Example usage
-const rule = 'sum(max(count("a"),count("b")),count("z")) > 5';
-const data: DataDictionary = {
-  a: 'aaryan is the best, zero haters',
-  b: 'aaryan is the best, zero haters',
-  z: 'aaryan is the best, zero haters',
-};
-console.log(evaluateRule(rule, data)); // Outputs: false
+// const rule = 'sum(max(count("a"),count("b")),count("z")) >= 5';
+// const data = 'The weather in Bangalore is amids the advisable lot, although the whole india is going through a heat wave';
+// console.log(evaluateRule(rule, data)); // Outputs: true
