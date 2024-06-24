@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { connectDatabase } from "./db";
-import { env } from "./db/env";
+// import { env } from "./db/env";
 import { logger } from "./utils/logger";
 import { authenticateJWT } from "./middleware/auth";
 import { registerRoutes } from "./auth/route";
@@ -26,8 +26,8 @@ async function main() {
 
 
     await app.listen({
-        port:env.PORT,
-        host:env.HOST
+        port:3000,
+        host:'0.0.0.0'
     })
     const db= connectDatabase()
 

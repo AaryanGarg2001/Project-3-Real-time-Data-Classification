@@ -105,5 +105,7 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["src/**/*.ts","src/*.ts","e2e/**/*.ts", "e2e/rule.test.js", "e2e/auth.test.js", "e2e/setup.js"],
+  "exclude": ["node_modules"]
 }
