@@ -11,18 +11,18 @@ WebSocket/SSE.
 
 Phase 2: Authentication
 
-4. JWT Authentication
+3. JWT Authentication
 – Implement JWT authentication middleware.
 – Ensure incoming requests contain a valid JWT token in the header.
 – Create signup and login endpoints (if they don’t exist).
 
 Phase 3: Data Models and Database
 
-5. Database Schema
+4. Database Schema
 – Design and implement database schema for storing user-defined rules.
 – Create models for user and classification rules.
 
-6. Database Integration
+5. Database Integration
 – Implement database connection and setup.
 – Create CRUD operations for user-defined rules.
 
@@ -68,3 +68,7 @@ To start:
 -- npx tsc --init
 
 -- pnpm dev
+
+For e2e testing 
+
+-- pnpm test
