@@ -62,6 +62,9 @@ data.
 To start:
 
 -- pnpm init
+
 -- pnpm i
+
 -- npx tsc --init
+
 -- pnpm dev
