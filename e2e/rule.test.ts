@@ -45,8 +45,6 @@ describe('Rule Endpoints', () => {
         rule: 'max(count("a"),count("b"))<10',
       });
 
-      console.log(res.body)
-
     expect(res.status).toBe(201);
     expect(res.body.message).toBe('Rule created successfully');
     ruleId = res.body.data.rule._id;

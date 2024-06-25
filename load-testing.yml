@@ -1,0 +1,24 @@
+config:
+  target: 'http://0.0.0.0:3000' 
+  phases:
+    - duration: 60
+      arrivalRate: 20 # Number of new virtual users per second
+  defaults:
+    headers:
+      Content-Type: application/json
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Nzg2NDExMzZjNzNjY2U1YzJmZDNiNyIsImlhdCI6MTcxOTI3NDg2M30.RmMB2fVKoJ5dbjrdawbLdp4uuZPmPaeQNItZG3IauPw' 
+
+scenarios:
+  - name: Rule Validation
+    flow:
+      - post:
+          url: '/rules/evaluate'
+          json:
+            ruleId: '66786607e03b34982b284c47'
+            data: 'zoro is the lost navigator'
+          expect:
+            - statusCode: 200
+          capture:
+            - json: '$.result'
+              as: validationResult
+      - log: 'Rule validation result: {{ validationResult }}'
